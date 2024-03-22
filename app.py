@@ -4,6 +4,8 @@ import re
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.lines import Line2D
+import mpld3
+import plotly.graph_objects as go
 
 PTABLE = pd.read_csv("Periodic Table of Elements.csv")
 
@@ -92,100 +94,38 @@ def compute_quantum_numbers(electron_configuration_dict):
 
 
 def plot_electrons(quantum_numbers):
-    fig = plt.figure(figsize=(10, 8))
-    ax = fig.add_subplot(111, projection="3d")
-
-    colors = {"spin_up": "b", "spin_down": "r"}
-    plotted_point_counts = {}
-
+    fig = go.Figure()
     for orbital, electrons in quantum_numbers.items():
         for electron in electrons:
             n = electron["n"]
             l = electron["l"]
             m = electron["m"]
             s = electron["s"]
-
-            x = n
-            y = l
-            z = l + m
-
-            point = (x, y, z)
-            if point in plotted_point_counts:
-                plotted_point_counts[point] += 1
-            else:
-                plotted_point_counts[point] = 1
-
-            ax.scatter(
-                x,
-                y,
-                z,
-                c=colors["spin_up"] if s == 0.5 else colors["spin_down"],
-                marker="o",
-                label=f"({x}, {y}, {z})",
-                s=100,
+            fig.add_trace(
+                go.Scatter3d(
+                    x=[n],
+                    y=[l],
+                    z=[l + m],
+                    mode="markers",
+                    marker=dict(
+                        size=8,
+                        color=(
+                            "blue" if s == 0.5 else "red"
+                        ),  # Adjust color based on spin
+                        opacity=0.8,
+                    ),
+                    name=f"({n}, {l}, {l + m})",
+                )
             )
-
-    for point, count in plotted_point_counts.items():
-        x, y, z = point
-        ax.text(
-            x,
-            y,
-            z,
-            f"({x}, {y}, {z})\nCount: {count}",
-            color="black",
-            fontsize=8,
-            ha="center",
-            va="center",
+    fig.update_layout(
+        scene=dict(
+            xaxis=dict(title="x: Principal Quantum Number (n)"),
+            yaxis=dict(title="y: Azimuthal Quantum Number (l)"),
+            zaxis=dict(title="z: Magnetic Quantum Number (m)"),
+            aspectratio=dict(x=1, y=1, z=1),
         )
-
-    ax.set_xlabel("Principal Quantum Number (n)")
-    ax.set_ylabel("Azimuthal Quantum Number (l)")
-    ax.set_zlabel("Magnetic Quantum Number (m)")
-
-    ax.set_box_aspect([1, 1, 1])
-
-    custom_lines = [
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            markerfacecolor="b",
-            markersize=10,
-            label="Spin Up",
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            markerfacecolor="r",
-            markersize=10,
-            label="Spin Down",
-        ),
-    ]
-    ax.legend(handles=custom_lines, loc="upper right")
-
-    max_n = max(
-        electron["n"]
-        for electrons in quantum_numbers.values()
-        for electron in electrons
     )
-    max_l = max(
-        electron["l"]
-        for electrons in quantum_numbers.values()
-        for electron in electrons
-    )
-    max_m = max(
-        abs(electron["m"])
-        for electrons in quantum_numbers.values()
-        for electron in electrons
-    )
-    ax.set_xlim(0, max_n + 1)
-    ax.set_ylim(-1, max_l + 1)
-    ax.set_zlim(-max_l - max_m - 1, max_l + max_m + 1)
-
-    st.pyplot(fig)
+    st.plotly_chart(fig)
 
 
 def convert_to_latex(configuration):
@@ -210,9 +150,12 @@ def convert_to_standard_notation(configuration):
     for orbital, spins in configuration.items():
         total_spins = spins["up"] + spins["down"]
         if total_spins > 0:
-            notation += f"{orbital}^{total_spins}"
+            notation += f"${orbital}^{{{total_spins}}}$"
 
-    return notation
+    # Add space between each orbital notation
+    notation_with_spaces = " ".join(notation.split("$")[1:])
+
+    return notation_with_spaces
 
 
 def create_quantum_numbers_table(quantum_numbers):

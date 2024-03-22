@@ -3,6 +3,8 @@ import pandas as pd
 import re
 import plotly.graph_objects as go
 
+st.set_page_config(page_icon="👨‍🔬")
+
 PTABLE = pd.read_csv("Periodic Table of Elements.csv")
 
 

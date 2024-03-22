@@ -208,10 +208,9 @@ def convert_to_latex(configuration):
 def convert_to_standard_notation(configuration):
     notation = ""
     for orbital, spins in configuration.items():
-        if spins["up"] > 0:
-            notation += f"{orbital}^{spins['up']}"
-        if spins["down"] > 0:
-            notation += f"{orbital}^{spins['down']}"
+        total_spins = spins["up"] + spins["down"]
+        if total_spins > 0:
+            notation += f"{orbital}^{total_spins}"
 
     return notation
 

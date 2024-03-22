@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
 import re
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.lines import Line2D
-import mpld3
 import plotly.graph_objects as go
 
 PTABLE = pd.read_csv("Periodic Table of Elements.csv")

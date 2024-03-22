@@ -47,7 +47,14 @@ def electron_configuration(num_electrons):
 
     while electron_count < num_electrons and orbital_index < len(orbitals):
         orbital = orbitals[orbital_index]
-        max_electrons = 2 if orbital.endswith("s") else 6
+        if orbital.endswith("s"):
+            max_electrons = 2
+        elif orbital.endswith("p"):
+            max_electrons = 6
+        elif orbital.endswith("d"):
+            max_electrons = 10
+        elif orbital.endswith("f"):
+            max_electrons = 14
         electrons_added = min(num_electrons - electron_count, max_electrons)
 
         # fill the orbital with electrons and their spin direction

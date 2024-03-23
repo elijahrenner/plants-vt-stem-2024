@@ -176,7 +176,7 @@ st.title("quantum-numbers-of-electons 👨‍🔬")
 st.image("Science-cuate.png")
 st.divider()
 
-st.header("Description")
+st.header("Descriptions")
 st.subheader("What are quantum numbers?")
 st.write(
     "An electron has four quantum numbers, each describing a feature of the electron. The four quantum numbers are the principal quantum number, angular momentum quantum number, magnetic quantum number, and the spin quantum number."
@@ -196,9 +196,14 @@ st.write(
 )
 st.subheader("Spin (s)")
 st.write("The spin of an electron. Possible values: +1/2(up),-1/2(down)")
+st.subheader("Extended description")
+st.link_button(
+    "Full report",
+    "https://docs.google.com/document/d/1WVB1G6nEgTCoC84SaYog1sNyxy1t1xRY8JHz7TmxKGs/edit?usp=sharing",
+)
 
-
-st.header("Element Input")
+st.header("Model")
+st.subheader("Element Input")
 element = st.text_input("Element Symbol (e.g. Fe)")
 
 if element:
@@ -209,14 +214,14 @@ if element:
         configuration = electron_configuration(num_electrons)
         quantum_numbers = compute_quantum_numbers(configuration)
         print(configuration)
-        st.header("Orbital Notation")
+        st.subheader("Orbital Notation")
         st.latex(convert_to_latex(configuration))
-        st.header("Standard Notation")
+        st.subheader("Standard Notation")
         st.latex(convert_to_standard_notation(configuration))
-        st.header(f"Quantum Numbers for Each Electron in {element}")
+        st.subheader(f"Quantum Numbers for Each Electron in {element}")
         quantum_numbers_df = create_quantum_numbers_table(quantum_numbers)
         st.dataframe(quantum_numbers_df)
-        st.header("Wicked Cool Graph of All Electron Quantum Numbers")
+        st.subheader("Wicked Cool Graph of All Electron Quantum Numbers")
         st.write("In the form (n,l,m)")
         st.write("🟦 indicates spin up")
         st.write("🟥 indicates spin down")

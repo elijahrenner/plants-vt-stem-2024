@@ -176,8 +176,30 @@ st.title("quantum-numbers-of-electons 👨‍🔬")
 st.image("Science-cuate.png")
 st.divider()
 
-st.write("Enter the symbol of the element:")
-element = st.text_input("Element Symbol")
+st.header("Description")
+st.subheader("What are quantum numbers?")
+st.write(
+    "An electron has four quantum numbers, each describing a feature of the electron. The four quantum numbers are the principal quantum number, angular momentum quantum number, magnetic quantum number, and the spin quantum number."
+)
+st.subheader("Principal")
+st.write("Indicates energy level for an electron. Range: positive integers 1,2,3,...")
+st.subheader("Angular momentum")
+st.write(
+    "One integer corresponding to an electron’s orbital shape (s,p,d,f). Range for principal number n: integers from 0 until (n-1); 0,1,2,3,...(n-1)"
+)
+st.subheader("Magnetic")
+st.write(
+    "Possible orientations of an electron’s orbital of shape l. Range for angular momentum number l: integers -l,...,-1,0,1,...,l."
+)
+st.write(
+    " *in the model, a ml value is assigned to an electron’s orbital based on its position in the range -l,...,-1,0,1,...,l. For example, the first orbital in the l subshell will have orientation -l, the second will have -l+1 and so on until the last orbital receives orientation l."
+)
+st.subheader("Spin")
+st.write("The spin of an electron. Possible values: +1/2(up),-1/2(down)")
+
+
+st.header("Element Input")
+element = st.text_input("Element Symbol (e.g. Fe)")
 
 if element:
     num_electrons = find_electrons(element)
@@ -198,6 +220,5 @@ if element:
         st.write("In the form (n,l,m)")
         print(quantum_numbers)
         plot_electrons(quantum_numbers)
-        st.header("Quantum Number Definitions")
     else:
         st.write("That's not an element, doofus")

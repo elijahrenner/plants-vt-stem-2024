@@ -222,7 +222,7 @@ if element:
         quantum_numbers_df = create_quantum_numbers_table(quantum_numbers)
         st.dataframe(quantum_numbers_df)
         st.subheader("Wicked Cool Graph of All Electron Quantum Numbers")
-        st.write("In the form (n,l,m)")
+        st.write("(x,y,z) corresponds to (n,l,m)")
         st.write("🟦 indicates spin up")
         st.write("🟥 indicates spin down")
         print(quantum_numbers)

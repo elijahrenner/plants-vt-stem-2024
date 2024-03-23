@@ -218,6 +218,8 @@ if element:
         st.dataframe(quantum_numbers_df)
         st.header("Wicked Cool Graph of All Electron Quantum Numbers")
         st.write("In the form (n,l,m)")
+        st.write("🟦 indicates spin up")
+        st.write("🟥 indicates spin down")
         print(quantum_numbers)
         plot_electrons(quantum_numbers)
     else:

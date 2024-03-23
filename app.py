@@ -117,9 +117,9 @@ def plot_electrons(quantum_numbers):
             )
     fig.update_layout(
         scene=dict(
-            xaxis=dict(title="x: Principal Quantum Number (n)"),
-            yaxis=dict(title="y: Azimuthal Quantum Number (l)"),
-            zaxis=dict(title="z: Magnetic Quantum Number (m)"),
+            xaxis=dict(title="x: Principal (n)"),
+            yaxis=dict(title="y: Angular Momentum (l)"),
+            zaxis=dict(title="z: Magnetic (m)"),
             aspectratio=dict(x=1, y=1, z=1),
         )
     )

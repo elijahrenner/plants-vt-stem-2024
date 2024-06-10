@@ -172,7 +172,7 @@ def create_quantum_numbers_table(quantum_numbers):
     return df
 
 
-st.title("quantum-numbers-of-electons 👨‍🔬")
+st.title("quantum-numbers-of-electrons 👨‍🔬")
 st.image("Science-cuate.png")
 st.divider()
 
